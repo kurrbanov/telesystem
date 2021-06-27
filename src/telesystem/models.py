@@ -2,12 +2,16 @@ from django.db import models
 
 
 class Subscriber(models.Model):
-    REGIONS = [
-        ('16', 'Татарстан'),
-        ('47', 'Ленинградская обл.'),
-        ('77', 'Москва'),
-        ('78', 'Санкт-Петербург'),
-        ('66', 'Свердловская обл.')
+    CITIES = [
+        ('1', 'Екатеринбург'),
+        ('2', 'Елабуга'),
+        ('3', 'Зеленодольск'),
+        ('4', 'Иннополис'),
+        ('5', 'Казань'),
+        ('6', 'Краснодар'),
+        ('7', 'Москва'),
+        ('8', 'Санкт-Петербург'),
+        ('9', 'Сочи')
     ]
 
     RATES = [
@@ -21,7 +25,7 @@ class Subscriber(models.Model):
     surname = models.CharField(max_length=255, blank=False)  # фамилия
     patronymic = models.CharField(max_length=255, blank=False)  # отчество
     phone_number = models.CharField(max_length=11, blank=False)  # номер телефона
-    region = models.CharField(choices=REGIONS, max_length=3, blank=False)  # регион
+    cities = models.CharField(choices=CITIES, max_length=3, blank=False)  # город
     rate = models.CharField(choices=RATES, max_length=2, blank=False)  # тариф
     balance = models.FloatField(blank=False)  # баланс
     minutes = models.IntegerField(blank=False)  # остаток минут
