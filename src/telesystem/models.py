@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.validators import MinLengthValidator
 
 
 class Subscriber(models.Model):
@@ -24,7 +25,7 @@ class Subscriber(models.Model):
     name = models.CharField(max_length=255, blank=False)  # имя
     surname = models.CharField(max_length=255, blank=False)  # фамилия
     patronymic = models.CharField(max_length=255, blank=False)  # отчество
-    phone_number = models.CharField(max_length=11, blank=False)  # номер телефона
+    passport = models.CharField(max_length=10, blank=False, unique=True, validators=[MinLengthValidator(10)])  # паспорт
     cities = models.CharField(choices=CITIES, max_length=3, blank=False)  # город
     rate = models.CharField(choices=RATES, max_length=2, blank=False)  # тариф
     balance = models.FloatField(blank=False)  # баланс
@@ -32,3 +33,14 @@ class Subscriber(models.Model):
     internet = models.FloatField(blank=False)  # остаток интерента
     sms = models.IntegerField(blank=False)  # отстаток смс
     last_date_payment = models.DateField()  # последний день оплаты тарифа
+
+    def __str__(self):
+        return f"{self.name} {self.surname} {self.patronymic}"
+
+
+class PhoneNumber(models.Model):
+    number = models.CharField(max_length=11)
+    subscriber = models.ForeignKey(Subscriber, on_delete=models.SET_NULL, null=True, default=None)
+
+    def __str__(self):
+        return f"{self.number}"
