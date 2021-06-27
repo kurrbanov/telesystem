@@ -10,32 +10,36 @@
 <body>
 {% block header %}
     <header class="p-3 bg-dark text-white">
-    <div class="container">
-    <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-    <h3 class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-        Абоненты КТС
-    </h3>
-    <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-        <li><a href="#" class="nav-link px-2 text-secondary"></a></li>
-        <li><a href="#" class="nav-link px-2 text-white"></a></li>
-        <li><a href="#" class="nav-link px-2 text-white"></a></li>
-        <li><a href="#" class="nav-link px-2 text-white"></a></li>
-        <li><a href="#" class="nav-link px-2 text-white"></a></li>
-    </ul>
+        <div class="container">
+            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                <h3 class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+                    Абоненты КТС
+                </h3>
+                <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                    <li><a href="#" class="nav-link px-2 text-secondary"></a></li>
+                    <li><a href="#" class="nav-link px-2 text-white"></a></li>
+                    <li><a href="#" class="nav-link px-2 text-white"></a></li>
+                    <li><a href="#" class="nav-link px-2 text-white"></a></li>
+                    <li><a href="#" class="nav-link px-2 text-white"></a></li>
+                </ul>
 
-    <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" method="POST" action="{% url 'find' %}">
-        {% csrf_token %}
-        <div class="input-group">
-            <input type="tel" class="form-control form-control-dark" placeholder="Искать по номеру телефона"
-                   aria-label="Search" maxlength="12" minlength="11" pattern="\+7[0-9]{10}" name="phone_number"
-                   required>
-            <a role="submit" class="btn btn-primary" url="{% url 'find' %}">Поиск</a>
+                <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" method="POST" action="{% url 'find' %}">
+                    {% csrf_token %}
+                    <div class="input-group">
+                        <input type="tel" class="form-control form-control-dark" placeholder="Искать по номеру телефона"
+                               aria-label="Search" maxlength="12" minlength="11" pattern="\+7[0-9]{10}"
+                               name="phone_number"
+                               required>
+                        <button type="submit" class="btn btn-primary">Поиск</button>
+                    </div>
+                </form>
+
+                <div class="text-end">
+                    <a role="button" class="btn btn-danger" href="{% url 'logout' %}">Выйти</a>
+                </div>
+            </div>
         </div>
-    </form>
-
-    <div class="text-end">
-        <a role="button" class="btn btn-danger" href="{% url 'logout' %}">Выйти</a>
-    </div>
+    </header>
 {% endblock %}
 {% block content %} {% endblock %}
 </body>

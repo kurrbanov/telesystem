@@ -2,5 +2,29 @@
 {% load static %}
 
 {% block content %}
-    
+    <link rel="stylesheet" href="{% static 'css/sub_info.css' %}">
+        <div class="row">
+            <div class="col-sm-9">
+                <div class="card">
+                    <div class="card-body">
+                        {% if not found %}
+                            <h3 class="alert alert-danger">Данный номер не существует.</h3>
+                        {% else %}
+                        <h3 class="text-begin alert alert-success">{{ phone_info.number }}</h3>
+                        <ul class="list-group">
+                            <li class="list-group-item"><b>ФИО:</b> {{ subscriber }}</li>
+                            <li class="list-group-item"><b>Паспорт:</b> {{ subscriber.passport }}</li>
+                            <li class="list-group-item"><b>Город:</b> {{ city }}</li>
+                            <li class="list-group-item"><b>Тариф:</b> {{ rate }}</li>
+                            <li class="list-group-item"><b>Баланс:</b> {{ phone_info.balance }}</li>
+                            <li class="list-group-item"><b>Минуты:</b> {{ phone_info.minutes }}</li>
+                            <li class="list-group-item"><b>Интернет:</b> {{ phone_info.internet }}</li>
+                            <li class="list-group-item"><b>СМС:</b> {{ phone_info.sms }}</li>
+                            <li class="list-group-item"><b>Дата списания:</b> {{ phone_info.date_payment }}</li>
+                        </ul>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
 {% endblock %}
