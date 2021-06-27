@@ -41,7 +41,7 @@ class PhoneNumber(models.Model):
     minutes = models.IntegerField(blank=False)  # остаток минут
     internet = models.FloatField(blank=False)  # остаток интерента
     sms = models.IntegerField(blank=False)  # отстаток смс
-    date_payment = models.DateField(blank=False)
+    date_payment = models.DateField(blank=False)  # дата списания денег с тарифа
 
     def __str__(self):
         return f"{self.number}"
