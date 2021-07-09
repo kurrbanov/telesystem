@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Удаление абонента</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/sub_add.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+<div class="flx dlt">
+    <form method="POST">
+        {% csrf_token %}
+        <div class="mb-3">
+            <h3>Уверены, что хотите удалить абонента?</h3>
+            <p><b>ФИО:</b> {{ subscriber.surname }} {{ subscriber.name }} {{ subscriber.patronymic }},
+                <b>Паспорт:</b> {{ subscriber.passport }}, <b>Город:</b> {{ subscriber.cities }}</p>
+        </div>
+        <div class="col">
+            <a href="{% url 'index' %}" role="button" class="btn btn-secondary">Отмена</a>
+            <button type="submit" class="btn btn-danger">Удалить</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>
