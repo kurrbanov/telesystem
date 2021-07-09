@@ -22,3 +22,7 @@ body {
     height: 100%;
     flex-wrap: wrap;
 }
+
+.dlt {
+    text-align: center;
+}

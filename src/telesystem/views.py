@@ -148,3 +148,28 @@ def add_number(request, pk):
             messages.error(request, 'Номер уже занят.')
 
     return render(request, 'number_add.html')
+
+
+@login_required(login_url='login')
+def sub_change(request, pk):
+    sub = Subscriber.objects.get(id=pk)
+    form = SubscriberForm(instance=sub)
+    if request.method == 'POST':
+        form = SubscriberForm(request.POST, instance=sub)
+        if form.is_valid():
+            form.save()
+            redirect('index')
+        else:
+            messages.error(request, 'Форма заполнена неверно.')
+
+    return render(request, 'sub_change.html', {'form': form})
+
+
+@login_required(login_url='login')
+def sub_delete(request, pk):
+    sub = Subscriber.objects.get(id=pk)
+    if request.method == 'POST':
+        sub.delete()
+        return redirect('index')
+
+    return render(request, 'sub_delete.html', {'subscriber': sub})
