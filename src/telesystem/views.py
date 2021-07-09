@@ -38,46 +38,15 @@ def index(request):
 
 @login_required(login_url='login')
 def find(request):
-    CITIES = [
-        ('Екатеринбург', 'Екатеринбург'),
-        ('Елабуга', 'Елабуга'),
-        ('Зеленодольск', 'Зеленодольск'),
-        ('Иннополис', 'Иннополис'),
-        ('Казань', 'Казань'),
-        ('Краснодар', 'Краснодар'),
-        ('Москва', 'Москва'),
-        ('Санкт-Петербург', 'Санкт-Петербург'),
-        ('Сочи', 'Сочи')
-    ]
-    
-    RATES = [
-        ('Ультра', 'Ультра'),
-        ('Smart', 'Smart'),
-        ('Безлимитище', 'Безлимитище'),
-        ('Тарифище', 'Тарифище')
-    ]
-    
     if request.method == 'POST':
         try:
             phone_number = PhoneNumber.objects.get(number=request.POST['phone_number'])
         except ObjectDoesNotExist:
-            print('yes')
             return render(request, 'subscriber_information.html', {'found': False})
-
-        city = ''
-        for c in CITIES:
-            if c[0] == phone_number.subscriber.cities:
-                city = c[1]
-        rate = ''
-        for r in RATES:
-            if r[0] == phone_number.rate:
-                rate = r[1]
 
         return render(request, 'subscriber_information.html', {
             'subscriber': phone_number.subscriber,
             'phone_info': phone_number,
-            'city': city,
-            'rate': rate,
             'found': True
         })
 
@@ -119,10 +88,10 @@ def add(request):
             subscriber = form_subscriber.save()
             phone = form_phone.save(commit=False)
             phone.subscriber = subscriber
-            phone.balance = rate_property[phone.rate['balance']]
-            phone.minutes = rate_property[phone.rate['minutes']]
-            phone.internet = rate_property[phone.rate['internet']]
-            phone.sms = rate_property[phone.rate['sms']]
+            phone.balance = rate_property[phone.rate]['balance']
+            phone.minutes = rate_property[phone.rate]['minutes']
+            phone.internet = rate_property[phone.rate]['internet']
+            phone.sms = rate_property[phone.rate]['sms']
             custom_date = date.today()
             phone.date_payment = date(custom_date.year, custom_date.month + 1, custom_date.day)
             phone.save()
@@ -131,3 +100,51 @@ def add(request):
             messages.error(request, 'Форма заполнена неверно')
 
     return render(request, 'sub_add.html')
+
+
+@login_required(login_url='login')
+def add_number(request, pk):
+    rate_property = {
+        'Ультра': {
+            'balance': 800,
+            'internet': 50,
+            'minutes': 1500,
+            'sms': 1500
+        },
+        'Smart': {
+            'balance': 500,
+            'internet': 30,
+            'minutes': 500,
+            'sms': 500
+        },
+        'Безлимитище': {
+            'balance': 450,
+            'internet': 25,
+            'minutes': 400,
+            'sms': 400
+        },
+        'Тарифище': {
+            'balance': 400,
+            'internet': 25,
+            'minutes': 600,
+            'sms': 600
+        }
+    }
+    if request.method == "POST":
+        form = PhoneNumberForm(request.POST)
+        if form.is_valid():
+            subscriber = Subscriber.objects.get(id=pk)
+            phone = form.save(commit=False)
+            phone.subscriber = subscriber
+            phone.balance = rate_property[phone.rate]['balance']
+            phone.minutes = rate_property[phone.rate]['minutes']
+            phone.internet = rate_property[phone.rate]['internet']
+            phone.sms = rate_property[phone.rate]['sms']
+            custom_date = date.today()
+            phone.date_payment = date(custom_date.year, custom_date.month + 1, custom_date.day)
+            phone.save()
+            return redirect('index')
+        else:
+            messages.error(request, 'Номер уже занят.')
+
+    return render(request, 'number_add.html')

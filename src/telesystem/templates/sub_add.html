@@ -4,25 +4,68 @@
     <meta charset="UTF-8">
     <title>Добавить абонента</title>
     {% load static %}
+    <link rel="stylesheet" href="{% static 'css/sub_add.css' %}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
 <body>
-<form>
-    <div class="mb-3">
-        <label for="exampleInputEmail1" class="form-label">Email address</label>
-        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-        <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-    </div>
-    <div class="mb-3">
-        <label for="exampleInputPassword1" class="form-label">Password</label>
-        <input type="password" class="form-control" id="exampleInputPassword1">
-    </div>
-    <div class="mb-3 form-check">
-        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-        <label class="form-check-label" for="exampleCheck1">Check me out</label>
-    </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
-</form>
+<div class="flx">
+    <form method="POST">
+        {% csrf_token %}
+        {% if messages %}
+            <div class="mb-3">
+                {% for message in messages %}
+                    <p class="alert alert-danger">{{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Имя</label>
+            <input type="text" class="form-control" id="exampleInputEmail1" name="name">
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Фамилия</label>
+            <input type="text" class="form-control" id="exampleInputPassword1" name="surname">
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Отчество</label>
+            <input type="text" class="form-control" id="exampleInputPassword1" name="patronymic">
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Паспорт</label>
+            <input type="text" class="form-control" id="exampleInputPassword1" name="passport" maxlength="10" minlength="10">
+        </div>
+        <div class="mb-3">
+            <label for="city" class="form-label">Выберите город</label>
+            <select class="form-select" id="city" aria-label="Default select example" name="cities">
+                <option selected>-</option>
+                <option value="Екатеринбург">Екатеринбург</option>
+                <option value="Елабуга">Елабуга</option>
+                <option value="Зеленодольск">Зеленодольск</option>
+                <option value="Иннополис">Иннополис</option>
+                <option value="Казань">Казань</option>
+                <option value="Краснодар">Краснодар</option>
+                <option value="Москва">Москва</option>
+                <option value="Санкт-Петербург">Санкт-Петербург</option>
+                <option value="Сочи">Сочи</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Номер телефона</label>
+            <input type="text" class="form-control" id="exampleInputPassword1" name="number" maxlength="12" minlength="11" pattern="\+7[0-9]{10}">
+        </div>
+        <div class="mb-3">
+            <label for="rate_" class="form-label">Выберите тариф</label>
+            <select class="form-select" id="rate_" aria-label="Default select example" name="rate">
+                <option selected>-</option>
+                <option value="Ультра">Ультра</option>
+                <option value="Smart">Smart</option>
+                <option value="Безлимитище">Безлимитище</option>
+                <option value="Тарифище">Тарифище</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-success">Отправить</button>
+    </form>
+</div>
 </body>
 </html>

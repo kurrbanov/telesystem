@@ -33,7 +33,8 @@ class PhoneNumber(models.Model):
         ('Тарифище', 'Тарифище')
     ]
 
-    number = models.CharField(max_length=12, validators=[MinLengthValidator(12)], blank=False)  # номер телефона
+    number = models.CharField(max_length=12, validators=[MinLengthValidator(12)], blank=False,
+                              unique=True)  # номер телефона
     subscriber = models.ForeignKey(Subscriber, on_delete=models.CASCADE, blank=False)  # Владелец номера
     rate = models.CharField(choices=RATES, max_length=30, blank=False)  # тариф
     balance = models.FloatField(blank=False)  # баланс
