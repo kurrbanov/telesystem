@@ -23,7 +23,7 @@ def login_page(request):
         else:
             messages.error(request, 'Неверный логин или пароль.')
 
-    return render(request, 'accounts/templates/accounts/login.html', {})
+    return render(request, 'accounts/login.html', {})
 
 
 def logout_page(request):
@@ -33,7 +33,7 @@ def logout_page(request):
 
 @login_required(login_url='login')
 def index(request):
-    return render(request, 'templates/index.html')
+    return render(request, 'index.html')
 
 
 @login_required(login_url='login')
@@ -42,15 +42,15 @@ def find(request):
         try:
             phone_number = PhoneNumber.objects.get(number=request.POST['phone_number'])
         except ObjectDoesNotExist:
-            return render(request, 'templates/subscriber_information.html', {'found': False})
+            return render(request, 'subscriber_information.html', {'found': False})
 
-        return render(request, 'templates/subscriber_information.html', {
+        return render(request, 'subscriber_information.html', {
             'subscriber': phone_number.subscriber,
             'phone_info': phone_number,
             'found': True
         })
 
-    return render(request, 'templates/subscriber_information.html', {})
+    return render(request, 'subscriber_information.html', {})
 
 
 @login_required(login_url='login')
@@ -99,7 +99,7 @@ def add(request):
         else:
             messages.error(request, 'Форма заполнена неверно')
 
-    return render(request, 'templates/sub_add.html')
+    return render(request, 'sub_add.html')
 
 
 @login_required(login_url='login')
@@ -147,7 +147,7 @@ def add_number(request, pk):
         else:
             messages.error(request, 'Номер уже занят.')
 
-    return render(request, 'templates/number_add.html')
+    return render(request, 'number_add.html')
 
 
 @login_required(login_url='login')

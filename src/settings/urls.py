@@ -1,5 +1,7 @@
 from django.contrib import admin
 from django.urls import path
+from django.conf.urls.static import static
+from django.conf import settings
 from apps.telesystem import views
 
 urlpatterns = [
@@ -13,3 +15,5 @@ urlpatterns = [
     path('subscriber/<int:pk>', views.sub_change, name="sub_change"),
     path('subscriber_delete/<int:pk>', views.sub_delete, name="sub_delete")
 ]
+
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_URL)
