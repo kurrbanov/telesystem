@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path
-from telesystem import views
+from apps.telesystem import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
