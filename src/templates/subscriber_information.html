@@ -23,10 +23,10 @@
                             <li class="list-group-item"><b>Дата списания:</b> {{ phone_info.date_payment }}</li>
                         </ul>
                         <div class="col">
-                            <a href="{% url 'add_number' subscriber.id %}" role="button" class="btn btn-primary">Добавить
+                            <a href="{% url 'add_number' subscriber.id %}" role="button" class="btn btn-primary sub-btn">Добавить
                                 номер</a>
-                            <a href="{% url 'sub_change' subscriber.id %}" role="button" class="btn btn-dark">Изменить данные</a>
-                            <a href="{% url 'sub_delete' subscriber.id %}" role="button" class="btn btn-danger">Удалить абонента</a>
+                            <a href="{% url 'sub_change' subscriber.id %}" role="button" class="btn btn-dark sub-btn">Изменить данные</a>
+                            <a href="{% url 'sub_delete' subscriber.id %}" role="button" class="btn btn-danger sub-btn">Удалить абонента</a>
                         </div>
                     {% endif %}
                 </div>
