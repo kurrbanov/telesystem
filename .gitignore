@@ -217,6 +217,7 @@ fabric.properties
 # https://plugins.jetbrains.com/plugin/7973-sonarlint
 .idea/**/sonarlint/
 .idea/
+data/
 
 # SonarQube Plugin
 # https://plugins.jetbrains.com/plugin/7238-sonarqube-community-plugin
